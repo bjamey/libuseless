@@ -1,0 +1,23 @@
+;; ----------------------------------------------------------------------------
+;;                                               DTT (c)2005 FSL - FreeSoftLand
+;; Title: Simple text file
+;;
+;; Date : 12/10/2005
+;; By   : FSL
+;; ----------------------------------------------------------------------------
+
+Database (network server ready) for tips & tricks collecting
+
+Some features:
+
+- Integrated editor with syntax highlight features.
+- Known languages: BASIC (Visual, Just), C (Visual, ++, #), COBOL, CSS, PHP,
+    Delphi (Pascal), HTML, .INI files, Java Scripts, Perl, Phyton, Script, SQL,
+    XML and much more.
+- Tips manager (create, delete, rename, edit, syntax properties, etc...).
+- Import Tip from external file capabilities.
+- Templates for new tips: Header with automatic date and title insertion.
+- Automatic (and manual) check for program updates.
+- Character Set management to support translation into non-latin languages
+    (i.e. Russian, Chinese, etc..).
+

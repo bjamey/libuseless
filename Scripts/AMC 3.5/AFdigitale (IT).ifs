@@ -1,0 +1,196 @@
+(***************************************************
+
+Ant Movie Catalog importation script
+www.antp.be/software/moviecatalog/
+
+[Infos]
+Authors=P (see comments for changes authors)
+Title=AFdigitale
+Description=Get movie info from AFDigitale
+Site=http://www.AFdigitale.it
+Language=IT
+Version=10.03.2005
+Requires=3.5.0
+Comments=**Changes**|14.04.2004 First Public Release (P)|02.02.2005 adapted to v.3.5.0 (Dinolib)|06.03.2005 rewrite html seek tags|10.03.2005 Revised for pivlib.pas Library use (P)
+License=*  The source code of the script can be used in   |*  another program only if full credits to              |*  script author and a link to Ant Movie Catalog  |*  website are given in the About box or in       |*  the documentation of the program               |
+GetInfo=1
+
+[Options]
+
+***************************************************)
+
+program AFdigitale;
+
+uses
+  Pivlib; // P's scripts common library
+
+const
+ UrlBase = 'http://www.afdigitale.it';
+ QueryBase = UrlBase + '/edisport/afdigitale/dvd.nsf/DVDS?SearchView&Query=';
+
+var
+ MovieUrl, MovieName, OriginalStr, TranslatedStr, PageStr:  string;
+
+
+// -----------------------
+// ANALYZE MOVIE DATA PAGE
+// IN:  none
+// OUT: set Ant fields
+// -----------------------
+procedure AnalyzeMoviePage;
+var
+  TempStr: string;
+begin
+  // Get packed title main page
+  PageStr := RemoveExtraChars(MovieUrl);
+  // image
+  GetPicture(UrlBase + getValue(PageStr, 'rowspan="2"><img src="','" width="',true,true));
+  PageStr := GetPageStr;
+  
+  // Translated Title field
+  SetField(fieldTranslatedTitle, getValue(PageStr, 'face="Verdana"><br>','</font></b>',true,true));
+  PageStr := GetPageStr;
+  
+  // Original Title field
+  SetField(fieldOriginalTitle, getValue(PageStr, 'face="Verdana">','</font></td>',true,true));
+  PageStr := GetPageStr;
+  if((uppercase(GetField(fieldOriginalTitle))='ID') or (GetField(fieldOriginalTitle)=''))then
+    SetField(fieldOriginalTitle, GetField(fieldTranslatedTitle));
+  // Category Field
+  SetField(fieldCategory, getValue(PageStr, '</b><b><font size="1" color="#000080" face="Verdana">','</font></b>',true,true));
+  PageStr := GetPageStr;
+  // Director Field
+  SetField(fieldDirector, getValue(PageStr, '<b><font size="1" color="#000080" face="Verdana">','</font></b>',true,true));
+  PageStr := GetPageStr;
+  // Actors Field
+  SetField(fieldActors, getValue(PageStr, '<b><font size="1" color="#000080" face="Verdana">','</font></b>',true,true));
+  PageStr := GetPageStr;
+  // YearField
+  SetField(fieldYear, getValue(PageStr, '<b><font size="1" color="#000080" face="Verdana">','</font></b>',true,true));
+  PageStr := GetPageStr;
+  // Producer Field
+  Delete (PageStr,1,pos(uppercase('Distribuito da:'),uppercase(PageStr)));
+  SetField(fieldProducer, getValue(PageStr, 'face="Verdana">','</font></b></td>',true,true));
+  PageStr := GetPageStr;
+  // Duration field
+  Delete (PageStr,1,pos(uppercase('Durata:</font><b><font size="1" color="#FFFFFF" face="Verdana">'),uppercase(PageStr)));
+  SetField(fieldLength, getValue(PageStr, '</b><b><font size="1" color="#ffffff" face="Verdana">','</font></b><b>',true,true));
+  PageStr := GetPageStr;
+  // Size Field
+  Delete (PageStr,1,pos(uppercase('FACE="Verdana">Supporto: </FONT>'),uppercase(PageStr)));
+  SetField(fieldSize, getValue(PageStr, 'FACE="Verdana">','</FONT></B><BR>',true,true));
+  PageStr := GetPageStr;
+  // Description Field
+  Delete (PageStr,1,pos('Qualità artistica:</font></b><font face="Verdana">',PageStr));
+  TempStr := getValue(PageStr, '<font size="2" face="Verdana">','</font><br>',true,true);
+  PageStr := GetPageStr;
+  HTMLDecode(TempStr);
+  SetField(fieldDescription, TempStr);
+  // Comments Field
+  TempStr := getValue(PageStr, '<font size="2" face="Verdana">','</font><br>',true,true);
+  PageStr := GetPageStr;
+  HTMLDecode(TempStr);
+  SetField(fieldComments, TempStr);
+  // Movie URL field
+  SetField(fieldURL, MovieUrl);
+end;
+
+
+// ------------------------------------------------------------------
+// FILL PICKTREE CONTROL WITH LINKS & TITLES or RETURN ONE PAGE LINK
+// if OneFilm flag true return Film Id else populate PickTree
+// IN:  OneFilm flag (bool)
+// OUT: one page ID  (string)
+// ------------------------------------------------------------------
+function PopulatePickTree(OneFilm: boolean): string;
+var
+  TempUrl: string;
+  TempTitle: string;
+  StartPos: integer;
+  EndPos: integer;
+begin
+  result := '';
+  StartPos := pos('<A HREF="', uppercase(PageStr));
+  Delete(PageStr, 1, StartPos - 1);
+  if OneFilm then
+    begin
+      StartPos := pos('<A HREF="', uppercase(PageStr));
+      EndPos := pos('"><DIV', uppercase(PageStr));
+      if StartPos > 0 then
+        begin
+          TempUrl := copy(PageStr, StartPos + 9, EndPos-Startpos - 9);
+          result := UrlBase + TempUrl;
+        end
+    end
+  else
+    begin
+      PickTreeClear;
+      repeat
+        StartPos := pos('<A HREF="', uppercase(PageStr));
+        EndPos := pos('?OpenDocument', PageStr);
+        if StartPos > 0 then
+          begin
+            TempUrl := copy(PageStr, StartPos + 9, EndPos-Startpos + 4);
+            Delete(PageStr, 1, EndPos + 1);
+            StartPos := pos('''">', PageStr);
+            EndPos := pos('</DIV>', uppercase(PageStr));
+            TempTitle := copy(PageStr, StartPos + 3, EndPos-Startpos - 3);
+            Delete(PageStr, 1, EndPos + 1);
+            PickTreeAdd(TempTitle, UrlBase + TempUrl);
+          end;
+      until(StartPos = 0);
+  end
+end;
+
+
+// ---------------------------------
+// ANALYZE FIRST SEARCH RESULT PAGE:
+// IN:  none
+// OUT: none
+// ---------------------------------
+procedure AnalyzeSearchPage;
+begin
+  PageStr := RemoveExtraChars(MovieUrl);
+  if pos('Nessun elemento trovato', PageStr) > 0 then
+    ShowMessage('Title not found / Nessun film trovato.')
+  else if pos('Si è verificato un errore',PageStr) > 0 then
+    ShowMessage('Server not available, try later / Server non disponibile, prova più tardi')
+  else
+    begin
+      if pos('1 elemento trovato', PageStr) > 0 then
+        MovieUrl := PopulatePickTree(true)    // One title found
+      else
+        begin
+          PopulatePickTree(false);            // More titles found..
+          if not PickTreeExec(MovieUrl) then  // ..select one
+            exit;
+        end;
+      AnalyzeMoviePage;
+    end;
+end;
+
+// ----------
+// MAIN:
+// IN:  none
+// OUT: none
+// ----------
+begin
+  if CheckVersion(3,5,0) then
+    begin
+      TranslatedStr := GetField(fieldTranslatedTitle);
+      OriginalStr := GetField(fieldOriginalTitle);
+      if (TranslatedStr <> '') then
+        MovieName := TranslatedStr
+      else
+        MovieName := OriginalStr;
+      if (Input('AFdigitale.it - By P', 'Enter the title of the movie / Inserire titolo del film:', MovieName)) then
+        begin
+         InitializePivLib;
+         MovieUrl := QueryBase + UrlEncode(MovieName);
+         AnalyzeSearchPage;
+         FinalizePivLib;
+        end;
+    end
+  else
+    ShowMessage('This script requires a newer version of Ant Movie Catalog (at least the version 3.5.0)');
+end.

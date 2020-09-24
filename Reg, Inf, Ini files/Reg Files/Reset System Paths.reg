@@ -1,0 +1,17 @@
+; -----------------------------------------------------------------------------
+;                                                DTT (c)2005 FSL - FreeSoftLand
+;  Title: Reset System Paths
+;
+;  Date : 12/10/2005
+;  By   : unknown     
+; -----------------------------------------------------------------------------
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion]
+"SM_GamesName"="Giochi"
+"SM_ConfigureProgramsName"="Impostazioni accesso ai programmi"
+"ProgramFilesDir"="C:\\Programmi"
+"CommonFilesDir"="C:\\Programmi\\File comuni"
+"SM_AccessoriesName"="Accessori"
+"PF_AccessoriesName"="Accessori"
+"MediaPath"="C:\\WINDOWS\\Media"

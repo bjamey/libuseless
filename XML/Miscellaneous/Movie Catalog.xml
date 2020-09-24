@@ -1,0 +1,337 @@
+<!-- --------------------------------------------------------------------------
+                                                 DTT (c)2006 FSL - FreeSoftLand
+   Title: Movie Catalog configuration file
+
+   Date : 12/10/2005
+   By   : Antoine Potten - www.antp.be/software/moviecatalog
+--------------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<AntMovieCatalog Format="33" Version="3.4.3 (2004-08-22)" Date="06/03/2005 15.38.20">
+ <Settings>
+  <Main WindowWidth="740" WindowHeight="540" WindowState="2" Statusbar="-1" ListWidth="200" GridMode="0" PicDockedHeight="180" Group="-1" FindWholeField="0" FindField="7" SortColumn="1" ColumnSettings="" PictureWinLeft="256" PictureWinTop="256">
+   <MRU>
+    <File Name="D:\Databases\Ant Movie Catalog\2005-02-12.amc"/>
+    <File Name="D:\Databases\Ant Movie Catalog\2004-11-14.amc"/>
+   </MRU>
+   <Toolbars>
+    <ToolbarPictureWindow Rev="2000" Visible="1" DockedTo="DockBottomList" LastDock="DockBottomList" DockRow="0" DockPos="-1" FloatLeft="0" FloatTop="0" ClientWidth="182" ClientHeight="176"/>
+    <ToolbarPicture Rev="2000" Visible="1" DockedTo="DockImageLeft" LastDock="DockImageLeft" DockRow="0" DockPos="-1" FloatLeft="0" FloatTop="0" FloatRightX="0"/>
+    <ToolbarMain Rev="2000" Visible="1" DockedTo="DockMainTop" LastDock="DockMainTop" DockRow="0" DockPos="153" FloatLeft="0" FloatTop="0" FloatRightX="0">
+     <Button Name="TBItemFileNew" Visible="-1"/>
+     <Button Name="TBItemFileOpen" Visible="0"/>
+     <Button Name="TBItemFileOpenMRU" Visible="-1"/>
+     <Button Name="TBItemFileSave" Visible="-1"/>
+     <Button Name="TBItemFileSaveAs" Visible="0"/>
+     <Button Name="TBItemFilePrint" Visible="-1"/>
+     <Button Name="TBItemFileImport" Visible="-1"/>
+     <Button Name="TBItemFileExport" Visible="-1"/>
+     <Button Name="TBItemFileProperties" Visible="0"/>
+     <Button Name="TBSeparatorFile" Visible="-1"/>
+     <Button Name="TBItemMovieAdd" Visible="-1"/>
+     <Button Name="TBItemMovieNumber" Visible="0"/>
+     <Button Name="TBItemMovieDelete" Visible="-1"/>
+     <Button Name="TBItemMovieFind" Visible="-1"/>
+     <Button Name="TBItemMoviePicture" Visible="-1"/>
+     <Button Name="TBItemMoviePictureMenu" Visible="0"/>
+     <Button Name="TBSeparatorMovie" Visible="-1"/>
+     <Button Name="TBItemMovieCopy" Visible="-1"/>
+     <Button Name="TBItemMoviePaste" Visible="-1"/>
+     <Button Name="TBItemMovieUndo" Visible="0"/>
+     <Button Name="TBSeparatorMovieEdit" Visible="-1"/>
+     <Button Name="TBItemGetInfo" Visible="-1"/>
+     <Button Name="TBItemGetInfoFiles" Visible="0"/>
+     <Button Name="TBItemGetInfoScript" Visible="0"/>
+     <Button Name="TBItemSearch" Visible="-1"/>
+     <Button Name="TBSeparatorGet" Visible="-1"/>
+     <Button Name="TBItemGroup" Visible="-1"/>
+     <Button Name="TBItemGrid" Visible="0"/>
+     <Button Name="TBItemScripting" Visible="0"/>
+     <Button Name="TBItemRenumber" Visible="0"/>
+     <Button Name="TBItemLoans" Visible="-1"/>
+     <Button Name="TBItemStats" Visible="-1"/>
+     <Button Name="TBItemPreferences" Visible="-1"/>
+     <Button Name="TBSeparatorMisc" Visible="-1"/>
+     <Button Name="TBItemHelp" Visible="-1"/>
+     <Button Name="TBItemAbout" Visible="0"/>
+     <Button Name="TBSeparatorHelp" Visible="0"/>
+     <Button Name="TBItemExit" Visible="0"/>
+    </ToolbarMain>
+    <ToolbarMenu Rev="2000" Visible="1" DockedTo="DockMainTop" LastDock="DockMainTop" DockRow="0" DockPos="-1" FloatLeft="0" FloatTop="0" FloatRightX="0"/>
+    <ToolbarFind Rev="2000" Visible="0" DockedTo="+" LastDock="DockMainBottom" DockRow="1" DockPos="8" FloatLeft="0" FloatTop="0" ClientWidth="532" ClientHeight="53"/>
+   </Toolbars>
+  </Main>
+  <Export WindowWidth="675" WindowHeight="475" WindowState="1" OnlySelected="0" ImgFileName="0">
+   <HTML ExportBoth="-1" LastTemplate="C:\Program Files\Ant Movie Catalog\Templates\template.html" LastTemplate2="">
+    <MRU/>
+   </HTML>
+   <CSV Delimiter=";" ReplaceDelimiter="," ColumnTitles="0">
+    <Fields/>
+   </CSV>
+   <SQL SQLUpdate="0" SQLDrop="-1" SQLCreate="-1">
+    <Fields/>
+   </SQL>
+   <Sort Order="0">
+    <Fields/>
+   </Sort>
+  </Export>
+  <Import WindowWidth="600" WindowHeight="475" WindowState="1" CSVDelimiter=";"/>
+  <Print WindowWidth="750" WindowHeight="480" WindowState="1" ReportsListWidth="175">
+   <Sort Order="0">
+    <Fields/>
+   </Sort>
+  </Print>
+  <Scripts WindowWidth="580" WindowHeight="430" WindowState="2" ScriptRemember1="C:\Program Files\Ant Movie Catalog\Scripts\Sample.ifs" ScriptRemember2="">
+   <MRU>
+    <File Name="C:\Program Files\Ant Movie Catalog\Scripts\Sample.ifs"/>
+   </MRU>
+  </Scripts>
+  <Loan WindowWidth="650" WindowHeight="550" WindowState="1" MoviesHeight="175" MoviesColWidth="216" MoviesSort="0" NamesWidth="210" NamesSort="0" LentSort="0"/>
+  <Properties WindowWidth="400" WindowHeight="350"/>
+  <Statistics WindowWidth="600" WindowHeight="460" WindowState="1" EmptyMonths="-1" Legend="-1" Labels="0" GroupValues="-1"/>
+  <Renumber SortOrder="0">
+   <Fields/>
+  </Renumber>
+  <Options WindowWidth="625" WindowHeight="450">
+   <Display ImagesInMenu="-1" Skin="0" IconSet="" ColorType="0" Logo="-1" SoftBorders="0"/>
+   <Files Backup="-1" RecentFiles="5">
+    <AutoLoad Enabled="0" File="" Last="0"/>
+    <History Enabled="-1" File="C:\Applications Data\Ant Movie Catalog\Loans history.csv" Delimiter=";" ReplaceDelimiter=","/>
+   </Files>
+   <MovieList ConfirmDelete="-1" ConfirmUndo="-1" Checkboxes="0" HotTrack="0" EnhancedScrollbars="0" GroupEmpty="-1" GroupCount="-1" ShortcutPrev="16417" ShortcutNext="16418">
+    <TitleDisplay TitleColumn="0" AutoRefresh="-1">
+     <Prefixes Use="0">
+      <Item Text="L"/>
+      <Item Text="Le"/>
+      <Item Text="La"/>
+      <Item Text="Les"/>
+      <Item Text="Un"/>
+      <Item Text="Une"/>
+      <Item Text="The"/>
+      <Item Text="A"/>
+     </Prefixes>
+    </TitleDisplay>
+   </MovieList>
+   <MovieInfo AskNumber="-1" FirstAvailable="0" AddScript="0" AddFiles="0">
+    <Picture Background="536870912" FitWindow="-1" LinkStyle="0"/>
+    <DefaultMovie WindowWidth="570" WindowHeight="560">
+     <Values Number="0" Checked="True"/>
+    </DefaultMovie>
+    <ImportInfo Size="-1" SizeString="-1" SizeUnit="0" Resolution="-1" Length="0" FileName="0" Framerate="-1" VideoCodec="-1" VideoBitrate="-1" AudioCodec="-1" AudioBitrate="-1" ImportPictureStyle="0"/>
+    <Search>
+     <Site Address="[EN] IMDb=http://us.imdb.com/Find?%s"/>
+     <Site Address="[EN] Rotten Tomatoes=http://www.rottentomatoes.com/search/full_search.php?search=%s"/>
+     <Site Address="[EN] DVD Empire=http://www.dvdempire.com/Exec/v5_search_item.asp?string=%s"/>
+     <Site Address="[EN] DVDZone2=http://www.dvdzone2.com/dvd/search.asp?t=1&#38;kw=%s&#38;kwt=t&#38;pl=all"/>
+     <Site Address="-1="/>
+     <Site Address="[FR] Allociné=http://www.allocine.fr/recherche/default.html?motcle=%s"/>
+     <Site Address="[FR] IMDb=http://french.imdb.com/Find?%s"/>
+     <Site Address="[FR] Monsieur Cinéma=http://www.monsieurcinema.tiscali.fr/commun/recherche/?search=%s"/>
+     <Site Address="[FR] DVDFR=http://www.dvdfr.com/search/search.php?multiname=%s&#38;x=0&#38;y=0"/>
+     <Site Address="[FR] Cineguide=http://www.cineguide.be/scriptsred/search.cfm?Lang=NL&#38;key=%s"/>
+     <Site Address="-2="/>
+     <Site Address="[NL] Cineguide=http://www.cineguide.be/scriptsred/search.cfm?Lang=NL&#38;key=%s"/>
+     <Site Address="-3="/>
+     <Site Address="[ES] Culturalia=http://www.culturalianet.com/bus/resu.php?texto=%s&#38;donde=2"/>
+     <Site Address="-4="/>
+     <Site Address="[PL] Filmweb=http://www.filmweb.pl/searchtopic.xml?gdzie=1&#38;key=%s"/>
+     <Site Address="[PL] Stopklatka=http://www.stopklatka.pl/szukaj/szukaj.asp?szukaj=%s&#38;kategoria=film"/>
+     <Site Address="[PL]Film.onet=http://film.onet.pl/filmoteka.html?L=&#38;S=%s&#38;O=1"/>
+     <Site Address="-5="/>
+     <Site Address="[RU] NasheKino=http://www.nashekino.ru/cgi-bin/find.cgi?t=0&#38;sval=%s"/>
+     <Site Address="[RU] VideoGuide=http://www.videoguide.ru/find.asp?Search=Simple&#38;types=film&#38;titles=%s"/>
+     <Site Address="-6="/>
+     <Site Address="[HU] PORT.hu=http://www.port.hu/pls/ci/cinema.film_list?i_film_title=%s"/>
+     <Site Address="-7="/>
+     <Site Address="[BG] kino.gbg.bg=http://kino.gbg.bg/index.php?p=srch&#38;keyw=%s&#38;where=movies"/>
+     <Site Address="[BG] kino.dir.bg=http://kino.dir.bg/search.php?keywords=%s&#38;type=0"/>
+    </Search>
+    <Lists SameForAll="0">
+     <Media AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="CD-ROM"/>
+      <Item Text="DVD"/>
+      <Item Text="Laserdisc"/>
+      <Item Text="Super Video CD"/>
+      <Item Text="VHS"/>
+      <Item Text="Video CD"/>
+     </Media>
+     <Sources AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="Exchange"/>
+      <Item Text="Friend"/>
+      <Item Text="Gift"/>
+      <Item Text="Shop"/>
+     </Sources>
+     <Borrowers AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="-1"/>
+     <Country AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="Australia"/>
+      <Item Text="Belgium"/>
+      <Item Text="Canada"/>
+      <Item Text="France"/>
+      <Item Text="Germany"/>
+      <Item Text="Italy"/>
+      <Item Text="Japan"/>
+      <Item Text="Netherlands"/>
+      <Item Text="Spain"/>
+      <Item Text="Switzerland"/>
+      <Item Text="United Kingdom"/>
+      <Item Text="United States"/>
+     </Country>
+     <Category AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="Action"/>
+      <Item Text="Adventure"/>
+      <Item Text="Animation"/>
+      <Item Text="Classic"/>
+      <Item Text="Comedy"/>
+      <Item Text="Detective"/>
+      <Item Text="Drama"/>
+      <Item Text="Drama Comedy"/>
+      <Item Text="Fantasy"/>
+      <Item Text="Horror"/>
+      <Item Text="Other"/>
+      <Item Text="Romance"/>
+      <Item Text="Science-Fiction"/>
+      <Item Text="Suspense"/>
+      <Item Text="Thriller"/>
+      <Item Text="War"/>
+      <Item Text="Western"/>
+     </Category>
+     <Video AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="ASF"/>
+      <Item Text="AVI"/>
+      <Item Text="DivX"/>
+      <Item Text="DivX 3"/>
+      <Item Text="DivX 4"/>
+      <Item Text="DivX 5"/>
+      <Item Text="DVD"/>
+      <Item Text="DVD Zone 1"/>
+      <Item Text="DVD Zone 2"/>
+      <Item Text="DVD Zone 3"/>
+      <Item Text="DVD Zone 4"/>
+      <Item Text="DVD Zone 5"/>
+      <Item Text="DVD Zone 6"/>
+      <Item Text="MPEG1"/>
+      <Item Text="MPEG1/VideoCD"/>
+      <Item Text="MPEG2"/>
+      <Item Text="MPEG2/DVD"/>
+      <Item Text="MPEG2/SuperVideoCD"/>
+      <Item Text="MPEG4"/>
+      <Item Text="QuickTime"/>
+      <Item Text="Real"/>
+      <Item Text="SVHS"/>
+      <Item Text="VHS"/>
+      <Item Text="VHS NTSC"/>
+      <Item Text="VHS PAL"/>
+      <Item Text="VHS Secam"/>
+      <Item Text="VHS-C"/>
+      <Item Text="Video8"/>
+      <Item Text="WindowMedia"/>
+      <Item Text="XviD"/>
+     </Video>
+     <Audio AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="AC3"/>
+      <Item Text="DVD"/>
+      <Item Text="DVD AC3"/>
+      <Item Text="DVD Dolby Digital 5.1"/>
+      <Item Text="DVD Dolby Prologic"/>
+      <Item Text="DVD DTS"/>
+      <Item Text="DVD Mono"/>
+      <Item Text="DVD Stereo"/>
+      <Item Text="DVD Stereo"/>
+      <Item Text="MPEG Layer 3 (MP3)"/>
+      <Item Text="MPEG1/VideoCD"/>
+      <Item Text="MPEG2/DVD"/>
+      <Item Text="RealAudio"/>
+      <Item Text="VHS"/>
+      <Item Text="VHS Mono"/>
+      <Item Text="VHS Stereo"/>
+      <Item Text="VHS Stereo-Nicam"/>
+      <Item Text="WMA"/>
+     </Audio>
+     <Framerate AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="23.976"/>
+      <Item Text="24"/>
+      <Item Text="24.999"/>
+      <Item Text="25"/>
+      <Item Text="29"/>
+      <Item Text="30"/>
+     </Framerate>
+     <Languages AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="Bulgarian"/>
+      <Item Text="Catalan"/>
+      <Item Text="Croatian"/>
+      <Item Text="Czech"/>
+      <Item Text="Danish"/>
+      <Item Text="Dutch"/>
+      <Item Text="English"/>
+      <Item Text="Estonian"/>
+      <Item Text="Finnish"/>
+      <Item Text="French"/>
+      <Item Text="German"/>
+      <Item Text="Greek"/>
+      <Item Text="Hebrew"/>
+      <Item Text="Hungarian"/>
+      <Item Text="Italian"/>
+      <Item Text="Korean"/>
+      <Item Text="Latvian"/>
+      <Item Text="Norwegian"/>
+      <Item Text="Polish"/>
+      <Item Text="Portuguese"/>
+      <Item Text="Romanian"/>
+      <Item Text="Russian"/>
+      <Item Text="Serbian"/>
+      <Item Text="Slovak"/>
+      <Item Text="Slovenian"/>
+      <Item Text="Spanish"/>
+      <Item Text="Swedish"/>
+      <Item Text="Turkish"/>
+     </Languages>
+     <Subtitles AutoAdd="0" Sorted="-1" AutoComplete="-1" UseCatalogValues="0">
+      <Item Text="Bulgarian"/>
+      <Item Text="Catalan"/>
+      <Item Text="Croatian"/>
+      <Item Text="Czech"/>
+      <Item Text="Danish"/>
+      <Item Text="Dutch"/>
+      <Item Text="English"/>
+      <Item Text="Estonian"/>
+      <Item Text="Finnish"/>
+      <Item Text="French"/>
+      <Item Text="German"/>
+      <Item Text="Greek"/>
+      <Item Text="Hebrew"/>
+      <Item Text="Hungarian"/>
+      <Item Text="Italian"/>
+      <Item Text="Korean"/>
+      <Item Text="Latvian"/>
+      <Item Text="Norwegian"/>
+      <Item Text="Polish"/>
+      <Item Text="Portuguese"/>
+      <Item Text="Romanian"/>
+      <Item Text="Russian"/>
+      <Item Text="Serbian"/>
+      <Item Text="Slovak"/>
+      <Item Text="Slovenian"/>
+      <Item Text="Spanish"/>
+      <Item Text="Swedish"/>
+      <Item Text="Turkish"/>
+     </Subtitles>
+    </Lists>
+   </MovieInfo>
+   <Scripting Remember1="-1" Autorun1="0" Remember2="-1" Autorun2="0">
+    <Proxy Use="0" Server="" Port="8080" Username="" Password="" KeepConnection="0"/>
+   </Scripting>
+   <Export LoadTemplate="-1" LineBreak="&#60;br&#62;" ForcePicSizeW="-1" ForcePicSizeH="-1" SQLDate="yyyy&#39;-&#39;mm&#39;-&#39;dd" RememberLastFile="0" LastFile="" OpenExportedFile="0" ExpFileStyle="0" ExpFileExt="" AddZeroes="0" CopyPictures="-1" CopyPicturesNew="0"/>
+   <Folders SameForAll="0">
+    <Catalogs Type="1" Path=""/>
+    <Picture Type="1" Path=""/>
+    <Export Type="1" Path=""/>
+    <Templates Type="1" Path=""/>
+    <Import Type="1" Path=""/>
+    <GetFromFiles Type="1" Path=""/>
+    <Graphic Type="1" Path=""/>
+    <Scripts Type="1" Path=""/>
+   </Folders>
+   <Language File="Italian"/>
+  </Options>
+ </Settings>
+</AntMovieCatalog>

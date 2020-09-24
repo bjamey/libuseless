@@ -1,0 +1,215 @@
+//-----------------------------------------------------------------------------
+//                                               DTT (c)2005 FSL - FreeSoftLand
+// Title: print
+//
+// Date : 12/10/2005
+// By   : unknown
+//-----------------------------------------------------------------------------
+
+/*FONT STANDARD */
+body{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+}
+em{
+    font-style: italic;
+    font-weight: none;
+}
+.titoloLemma, .lemmaBase{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+}
+/* contenuti di areaDizionario 
+#lemma, .lemmaBase{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+    font-weight: bold;
+}*/
+#intestazione{
+    font-size: 8pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+/*#testo{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    padding-right: 4px;
+    line-height: 18px;
+}
+#l_declinazione, #l_coniugazione, #l_sinonimiContrari, #l_declinazioneSing, #l_coniugazioneSing, #l_sinonimiContrariSing{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    padding-right: 4px;
+    line-height: 17px;
+}*/
+/* Classi dei CONTENUTI */
+.testoOrdine{
+    text-indent: -13pt;
+    padding-top: 1em;
+    padding-left: 13pt;
+    display: block;
+}
+.testoLosanga{
+    padding-left: 13pt;
+    display: block;
+}
+.testoTilde{
+    padding-left: 13pt;
+    display: block;
+}
+.ordine{
+    font-weight: bold;
+}
+.abbreviazione{
+    font-weight: bold;
+    font-style: italic;
+}
+.ordineLemma{
+    font-size:12pt;
+}
+.locuzione{
+    font-style: italic;
+}
+.sillabazione{
+}
+.variante{
+    font-style: italic;
+}
+.grammatica1{
+}
+.grammatica2{
+    font-style:italic;
+}
+.particolarita{
+    font-style: italic;
+}
+.etimologia{
+    font-size: 8pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.datazione{
+    font-size: 8pt;
+    font-style: normal;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.lingua1{
+    font-style: normal;
+}
+.lingua2{
+    font-style: italic;
+}
+
+.esempioTesto{
+    font-style: italic;
+}
+.esempioAutore, .esempioDefinizione, .sepEsempio{
+    font-style: normal;
+}
+.reggenza{
+    font-weight: bold;
+}
+.tipoAlterati{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.alterati{
+    padding-top: 1em;
+    font-style: italic;
+    display: block;
+}
+a.pronunciaSt{
+    text-decoration: none;
+}
+
+.m2 {
+    font-style:italic;
+}
+.m1 {
+    font-style:italic;
+    font-weight:bold;
+}
+
+.etim {
+    font-style:italic;
+    font-size: 8pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+.tilde, .losanga{
+    font-weight: bold;
+}
+#tipoFlessione{
+    font-size:7pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+/* classi tabella DECLINAZIONE e SINONIMICONTRARI */
+.tabellaSinCon{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+}
+.intestazioneSinCon{
+    font-weight: bold;
+}
+.l_declinazione_intestazioneTop, .l_sinonimiContrari_intestazioneTop {
+    width: 130px;
+    font-weight:bold;
+    padding-left: 8px;
+    font-size: 11pt;
+}
+
+.declinazione{
+    padding-left: 6px;
+    vertical-align: bottom;
+    font-size: 10pt;
+}
+.sinCon{
+    padding-left: 6px;
+    vertical-align: top;
+    font-size: 10pt;
+}
+
+#declinazioneStraniera, #declinazioneStraniera2{
+    font-style:italic;
+    color:#000066;
+    padding-top: 20px;
+}
+.termineStr {
+    font-style:normal;
+    font-size: 10pt;
+}
+/* classi tabella SINONIMI E CONTRARI */
+.cellaLemmi{
+    padding-left: 4px;
+}
+/* classi tabella CONIUGAZIONE */
+.cellaModo{
+    height: 14px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-top: 10px;
+    font-size: 9pt;
+}
+.cellaTempo{
+    width: 185px;
+    font-weight: bold;
+    font-size: 10pt;
+}
+.cellaVerbo{
+    padding-left: 4px;
+    font-size: 10pt;
+}
+
+/* classi per gestire inserimento simboli speciali (immagini) all'interno del testo */
+.imgSimboli { /* allinea le immagini con il testo che le "ospita" */
+    vertical-align:text-bottom;
+}
+.noAccapo{ /* evita che il testo contenente un'immagine (simbolo speciale) venga spezzata */
+    white-space: nowrap;
+}
+/*per Netscape*/
+.usaPrint{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 7pt;
+}
+
+

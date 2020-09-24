@@ -1,0 +1,281 @@
+(***************************************************
+
+Ant Movie Catalog importation script
+www.antp.be/software/moviecatalog/
+
+[Infos]
+Authors=Pivello (see comments for changes authors)
+Title=35mm.it
+Description=Get movie info from 35mm.it
+Site=http://www.35mm.it
+Language=IT
+Version=10.03.2005
+Requires=3.5.0
+Comments=**Changes**|12.04.2004 New script for XTML->JSP migration (P)|14.04.2004 Added test for Apache Server down  (P)|14.04.2004 Removed breaking code from comments field (P)|15.04.2004 Code optimization Get film image if cover not found (P)|adapted to v.3.5.0|08.03.2005 Now take all StoryBoard Information (TD77, NecroDeath)|10.03.2005 Revised for pivlib.pas Library use (P)|
+License=*  The source code of the script can be used in   |*  another program only if full credits to              |*  script author and a link to Ant Movie Catalog  |*  website are given in the About box or in       |*  the documentation of the program               |
+GetInfo=1
+
+[Options]
+Finale=1|1|0=Non prendere il finale|1=Prendi finale
+
+***************************************************)
+
+program New35mm;
+
+uses
+  PivLib; // P's scripts common library
+  
+const
+  UrlBase = 'http://www.35mm.it';
+  QueryBase = UrlBase + '/film/ricerca/bottom/ricercaschedafilm.jsp?titolo=';
+  QueryFilm = UrlBase + '/film/scheda/top/scheda.jsp?idFilm=';
+  QueryCast = UrlBase + '/film/scheda/bottom/cast.jsp?idFilm=';
+  QueryCover = UrlBase + '/film/scheda/bottom/homevideo.jsp?idFilm=';
+  QueryMovie = UrlBase + '/film/scheda/frameset/scheda.jsp?idFilm=';
+  QueryCmnts = UrlBase + '/film/scheda/bottom/recensioni.jsp?idFilm=';
+  QueryTrama = UrlBase + '/film/scheda/popup/trama.jsp?idFilm=';
+  QueryFinale = UrlBase + '/film/scheda/popup/finale.jsp?idFilm=';
+
+var
+  MovieUrl, CastUrl, FilmUrl, CoverUrl, CmntsUrl, TramaUrl, FinaleUrl: string;
+  MovieName, OriginalStr, TranslatedStr, PageStr:  string;
+
+
+// ---------------------------
+// DELETE DOTS AT END OF STRIG
+// IN:  Text      (string)
+// OUT: RemoveDot (string)
+// ---------------------------
+function RemoveDot (Text: string) : string;
+var
+  intLenght : integer;
+begin
+  repeat
+    intLenght := Length(Text);
+    if copy(Text,intLenght -1 ,1) = '.' then
+      begin
+        delete(Text, intLenght -1 ,1);
+      end;
+  until (copy(Text,intLenght -1,1) <> '.');
+  result := Text;
+End;
+
+
+// -----------------------
+// ANALYZE MOVIE DATA PAGE
+// IN:  none
+// OUT: set Ant fields
+// -----------------------
+procedure AnalyzeMoviePage;
+var
+  i, h, m: integer;
+  Duration, Description, Cast, TempStr, TempImg, hh, mm: string;
+begin
+  // Get packed title main page
+  PageStr := RemoveExtraChars(FilmUrl);
+  // Get film image (used if cover not found)
+  TempImg := getValue(PageStr, '/immagini/film/','" width="150" height="150"',false,true);
+  PageStr := GetPageStr;
+  // Translated Title field
+  SetField(fieldTranslatedTitle, getValue(PageStr, '<!-- titolo --> <b>','</b>',true,true));
+  PageStr := GetPageStr;
+  // Original Title field
+  SetField(fieldOriginalTitle, getValue(PageStr, '<!-- titolo originale --> <b>','</b>',true,true));
+  PageStr := GetPageStr;
+  if(GetField(fieldOriginalTitle)='')then
+    SetField(fieldOriginalTitle, GetField(fieldTranslatedTitle));
+  // Country field
+  SetField(fieldCountry, getValue(PageStr, '<!-- nazionalità --> ','<br>',true,true));
+  PageStr := GetPageStr;
+  // Duration field
+  TempStr := getValue(PageStr, '<!--durata del film --> ','<br>',true,true);
+  PageStr := GetPageStr;
+  Duration := '';
+  if (length(TempStr) > 0) then
+    begin
+      i := Pos('e', TempStr);
+      hh := copy(TempStr, 1, i - 3);
+      mm := copy(TempStr, i + 2, Length(TempStr) - i - 2);
+      h := StrToInt(hh, 2);
+      m := StrToInt(mm, 2);
+      Duration := IntToStr(h * 60 + m);
+    end;
+  SetField(fieldLength, Duration);
+  // Category Field
+  SetField(fieldCategory, getValue(PageStr, '<!-- genere --> <b>','</b>',true,true));
+  PageStr := GetPageStr;
+  // Director Field
+  SetField(fieldDirector, getValue(PageStr, 'target="_top">','</a>',true,true));
+  PageStr := GetPageStr;
+  // YearField
+  SetField(fieldYear, getValue(PageStr, '<!-- anno --> Anno: ','<br>',true,true));
+  PageStr := GetPageStr;
+  // Producer Field
+  SetField(fieldProducer, getValue(PageStr, 'target=''_TOP''>','</a>',true,true));
+  PageStr := GetPageStr;
+  // Description Field: Take information from Story Page
+  PageStr := RemoveExtraChars(TramaUrl);
+  Description := '';
+  repeat
+    TempStr := getValue(PageStr, '<td class="trecinque_dat" align="left" height="150" valign="top"><b>','</b>',true,true);
+    PageStr := GetPageStr;
+    Description := Description + TempStr +  ' ';
+  until(TempStr = '');
+  Description := RemoveDot(trim(Description)); // remove final dots
+  // Take information from Final Story Page if you want
+  case GetOption('Finale') of
+    1:
+      Begin
+        PageStr := RemoveExtraChars(FinaleUrl);
+        repeat
+          TempStr := getValue(PageStr, '<td class="trecinque_dat" align="left" height="150" valign="top">','</td>',true,true);
+          PageStr := GetPageStr;
+          Description := Description + TempStr + ' ';
+        until(TempStr = '');
+        Description := RemoveDot(trim(Description)); // remove final dots
+      end;
+  end;
+  SetField(fieldDescription, Description); // Save Story to Field Description
+  // Actors Field
+  PageStr := RemoveExtraChars(CastUrl); // Get packed Cast page
+  PageStr := Copy(PageStr,1,pos('<!-- end list cast -->',PageStr));
+  Cast := '';
+  repeat
+    TempStr := Trim(getValue(PageStr, 'target="_top">','</a>',true,true));
+    PageStr := GetPageStr;
+    if ((Cast<>'') and (TempStr<>'')) then
+      Cast := Cast + ', ';
+    Cast := Cast + TempStr;
+  until((TempStr='')or(Length(TempStr)>20));
+  if Cast = '' then
+    begin
+      PageStr := RemoveExtraChars(CastUrl);
+      Delete (PageStr,1,pos('<!-- produzione -->',PageStr));
+      Cast := Trim(getValue(PageStr, '</span><br>','<br> </td>',true,true));
+      PageStr := GetPageStr;
+    end;
+  SetField(fieldActors, Cast);
+  // image
+  PageStr := RemoveExtraChars(CoverUrl); // Get packed cover page
+  TempStr := getValue(PageStr, '/immagini/','" align="',false,true);
+  PageStr := GetPageStr;
+  if TempStr = '' then
+    TempStr := TempImg;
+  GetPicture(UrlBase + TempStr);
+  // Size Field
+  SetField(fieldSize, getValue(PageStr, 'Supporto: <span class="trecinque_dat_scuro_nobold">','</span>',true,true));
+  PageStr := GetPageStr;
+  // Comments Field
+  PageStr := RemoveExtraChars(CmntsUrl); // Get packed comments page
+  Delete (PageStr,1,pos('<!-- recensioni redazione esplose -->',PageStr));
+  TempStr := getValue(PageStr, '<td class="trecinque_dat_scuro_nobold">','<br> <br>',true,true);
+  PageStr := GetPageStr;
+  HTMLRemoveTags(TempStr);
+  SetField(fieldComments, TempStr);
+  // Movie URL field
+  SetField(fieldURL, MovieUrl);
+end;
+
+// ------------------------------------------------------------------
+// FILL PICKTREE CONTROL WITH LINKS & TITLES or RETURN ONE PAGE LINK
+// if OneFilm flag true return Film Id else populate PickTree
+// IN:  OneFilm flag (bool)
+// OUT: one page ID  (string)
+// ------------------------------------------------------------------
+function PopulatePickTree(OneFilm: boolean): string;
+var
+  TempIdFilm: string;
+  TempTitle: string;
+  StartPos: integer;
+  EndPos: integer;
+begin
+  if OneFilm then
+    begin
+      StartPos := pos('/film/scheda.jsp?idFilm=', PageStr);
+      EndPos := pos(''' target=''_top''', PageStr);
+      if StartPos > 0 then
+        begin
+          TempIdFilm := copy(PageStr, StartPos + 24, EndPos-Startpos - 24);
+          result := QueryMovie + TempIdFilm;
+        end
+    end
+  else
+    begin
+      PickTreeClear;
+      repeat
+        StartPos := pos('<a href="/film/scheda.jsp?idFilm=', PageStr);
+        EndPos := pos('" target="_top"', PageStr);
+        if StartPos > 0 then
+          begin
+            TempIdFilm := copy(PageStr, StartPos + 33, EndPos-Startpos - 33);
+            Delete(PageStr, 1, EndPos);
+            StartPos := pos('">', PageStr);
+            EndPos := pos('</a>', PageStr);
+            TempTitle := copy(PageStr, StartPos + 3, EndPos-Startpos - 4);
+            PickTreeAdd(TempTitle, QueryMovie + TempIdFilm);
+          end;
+      until(StartPos = 0);
+      result := '';
+    end
+ end;
+
+// ---------------------------------
+// ANALYZE FIRST SEARCH RESULT PAGE:
+// IN:  page Url (string)
+// OUT: none
+// ---------------------------------
+procedure AnalyzeSearchPage(Url: string);
+var
+   FilmId: string;
+begin
+  PageStr := RemoveExtraChars(Url);
+  if pos('Nessun film trovato.', PageStr) > 0 then
+    ShowMessage('Title not found / Nessun film trovato.')
+  else if pos('Si è verificato un errore',PageStr) > 0 then
+    ShowMessage('Server not available, try later / Server non disponibile, prova più tardi')
+  else
+    begin
+      if pos('Risultato della ricerca:', PageStr) = 0 then
+        MovieUrl := PopulatePickTree(true)   // One title found
+      else
+        begin
+          PopulatePickTree(false);           // More titles found..
+          if not PickTreeExec(MovieUrl) then // ..select one
+            exit;
+        end
+      FilmId := Copy(MovieUrl,59,20);        // get film id from movie url
+      FilmUrl := QueryFilm + FilmId;
+      TramaUrl := QueryTrama + FilmId;
+      FinaleUrl := QueryFinale + FilmId;
+      CastUrl := QueryCast + FilmId;
+      CoverUrl := QueryCover + FilmId;
+      CmntsUrl := QueryCmnts + FilmId;
+      AnalyzeMoviePage;
+    end;
+ end;
+
+// ----------
+// MAIN:
+// IN:  none
+// OUT: none
+// ----------
+begin
+  if CheckVersion(3,5,0) then
+    begin
+      TranslatedStr := GetField(fieldTranslatedTitle);
+      OriginalStr := GetField(fieldOriginalTitle);
+      if (TranslatedStr <> '') then
+        MovieName := TranslatedStr
+      else
+        MovieName := OriginalStr;
+      if (Input('35mm.it - By P', 'Enter the title of the movie / Inserire titolo del film:', MovieName)) then
+        begin
+          InitializePivLib;
+          MovieUrl := QueryBase + UrlEncode(MovieName);
+          AnalyzeSearchPage(MovieUrl);
+          FinalizePivLib;
+        end;
+    end
+  else
+    ShowMessage('This script requires a newer version of Ant Movie Catalog (at least the version 3.5.0)');
+end.

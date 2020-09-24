@@ -1,0 +1,33 @@
+//-----------------------------------------------------------------------------
+//                                      DTT 2.1.5.2  (c)2007 FSL - FreeSoftLand
+// Title: Dynamic CSS file loading
+//
+// Date : 23/05/2007
+// By   : FSL
+//-----------------------------------------------------------------------------
+
+// Dynamic CSS file loading
+
+var CSS = {
+
+        load: /*static*/ function (url_, /*optional*/ media_) {
+
+                // We are preventing loading a file already loaded
+                var _links = document.getElementsByTagName("link");
+                if (_links.length > 0 && _links["href"] == url_) return;
+
+                // Optional parameters check
+                var _media = media_ === undefined || media_ === null ? "all" : media_;
+
+                var _elstyle = document.createElement("link");
+                _elstyle.setAttribute("rel", "stylesheet");
+                _elstyle.setAttribute("type", "text/css");
+                _elstyle.setAttribute("media", _media);
+                _elstyle.setAttribute("href", url_);
+
+                var _head = document.getElementsByTagName("head")[0];
+                _head.element.appendChild(_elstyle);
+
+        }
+
+};

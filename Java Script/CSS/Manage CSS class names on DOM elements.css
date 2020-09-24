@@ -1,0 +1,38 @@
+//-----------------------------------------------------------------------------
+//                                      DTT 2.1.5.2  (c)2007 FSL - FreeSoftLand
+// Title: Manage CSS class names on DOM elements
+//
+// Date : 23/05/2007
+// By   : FSL
+//-----------------------------------------------------------------------------
+
+// Manage CSS class names on DOM elements
+
+var CSSUtils = {
+
+        hasClass: /*static*/ function (element_, cName_) {
+                var _regExp = new RegExp(cName_, "gi");
+                return element_ && _regExp.test(element_.className);
+        },
+        hasNotClass: /*static*/ function (element_, cName_) {
+                return !CSSUtils.hasClass(element_, cName_);
+        },
+
+        addClass: /*static*/ function (element_, cName_) {
+                if (element_) element_.className = element_.className.concat(" ", cName_, " ");
+        },
+
+        removeClass: /*static*/ function (element_, cName_) {
+                CSSUtils.replaceClass(element_, cName_, "");
+        },
+
+        replaceClass: /*static*/ function (element_, cNameReplaced_, cNameReplacement_) {
+                if (CSSUtils.hasClass(cNameReplaced_)) {
+                        var _regExp = new RegExp(cNameReplaced_, "gi");
+                        element_.className = element_.className.replace(_regExp, cNameReplacement_);
+                }
+                else if (CSSUtils.hasNotClass(cNameReplacement_)) {
+                        CSSUtils.addClass(cNameReplacement_);
+                }
+        }
+};

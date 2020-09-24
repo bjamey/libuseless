@@ -1,0 +1,5 @@
+<resources>
+  <rsc sourcefile = "HELLOWORLD.RSS" targetpath = "Z\SYSTEM\APPS\HELLOWORLD" header = "true" sourcepath = ".">
+    <language id = "SC"/>
+  </rsc>
+</resources>

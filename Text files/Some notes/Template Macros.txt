@@ -1,0 +1,20 @@
+;; ----------------------------------------------------------------------------
+;;                                      DTT 1.1.4.1  (c)2006 FSL - FreeSoftLand
+;;  Title: Template Macros
+;;
+;;  Date : 31/05/2006
+;;  By   : FSL
+;; ----------------------------------------------------------------------------
+
+Description      Macro        Output sample
+
+File Name:       %FILENAME%   Template Macros
+File Extension:  %FILEEXT%    TXT
+Current Time:    %TIME%       14.44.17
+Current Date:    %DATE%       31/05/2006
+Current Year:    %YR%         2006
+Full Date:       %FULLDATE%   Wednesday 31 May 2006
+DTT Version:     %PGVER%      1.1.4.1
+Developer Name:  %DEVELOPER%  Your Name :)
+Cursor here:     %CURSOR%     | <-- cursor stop here
+
